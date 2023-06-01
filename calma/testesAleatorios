@@ -1,0 +1,15 @@
+// axios.post('http://192.168.0.104:8000/auth/jwt/create',{
+    //     cpf: cpf,
+    //     password: senha
+    // }).catch((erro) => {
+    // console.log("aconteceu um empecilho" + erro)
+    // })
+    // const defaultOptions = {
+    //     headers: {
+    //         Authorization: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgzMjIzOTM5LCJpYXQiOjE2ODMyMjM2MzksImp0aSI6ImI3ZjVlNGRmYjczZDQ4Mzc5MDI5MTY0ODNiMWU4MWNkIiwidXNlcl9pZCI6MX0.xCk-K31vPh2RCCz6XAqsr5i_153VuTJXF-PSMrAQt7A'
+    //     },
+    // }
+    // axios.get('http://127.0.0.1:8000/loja/clientes',
+    //     { ...defaultOptions }).then((res) => {
+    //         console.log(res)
+    //     })
