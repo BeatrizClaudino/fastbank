@@ -1,0 +1,15 @@
+ # permission_classes = (IsAuthenticated, )
+        # queryset = Cliente.objects.get.all()
+        # serializer_class = CadastroclienteSerializer
+
+        # Cartao.objects.create(fkCliente=Cliente, numero='212')
+
+
+#user_id
+        #AccessToken(token)
+        # cliente = Cliente.objects.get(id=user_id)
+        #blz encontrei o cliente, agora vou criar o cartão
+        
+        # Cartao.objects.create(fkCliente=cliente, numero=gerar random, validade=11/25, codigoSeguranca=123)
+        
+        #cria um objeto de conta 
