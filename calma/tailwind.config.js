@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import img from './src/imagens/'
+import img from './src/imagens'
 module.exports = {
   darkMode: 'class',
   content: [
@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend:{
       backgroundImage: {
-        'Desktop5': "url('./src/imagens/Desktop5.png')",
+        'mulherDistraida': "url('imagens/mulherDistraida.png')",
       },
       colors: {
         dark: {
