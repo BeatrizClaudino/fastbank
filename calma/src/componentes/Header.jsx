@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import ToggleTheme from "./ToggleTheme"
+import logo from '../imagens/logo.png'
+import BurgerMenu from "./menuHamburguer"
 
 const Header = ({ dados }) => {
   const navigate = useNavigate()
@@ -8,15 +10,19 @@ const Header = ({ dados }) => {
     navigate('/')
     window.location.reload(true);
   }
+
+  
   return (
-    <header className="w-full h-20 p-5 border-gray-100 bg-[#230033] sm:bg-gradient-to-r to-[#6703a4] from-60% from-[#230033] flex justify-between items-center border-b-2 dark:border-[#280B4D]">
-      <nav className="hidden md:block w-screen">
-        <ul className="list-none flex items-center justify-center space-x-9">
+    <header className="flex w-full h-20 p-5 border-gray-100 bg-[#230033] sm:bg-gradient-to-r to-[#6703a4] from-60% from-[#230033] md:dark:bg-gradient-to-r to-[#6703a4] from-45% from-[#230033] justify-between items-center border-b-2 dark:border-[#280B4D]">
+      <Link to={"/"}>
+        <img className='w-[210px] h-[42px] md:hidden' src={logo} alt="" />
+      </Link>
+      <nav className=" md:block w-screen">
+        <ul className="hidden list-none md:flex items-center justify-center space-x-9">
           <li className="text-dark-100 dark:text-blue-50">
             <Link to={"/"}>
-              CashBank
+              <img className='w-[120px] h-[42px]' src={logo} alt="" />
             </Link>
-
           </li>
           <ul className="list-none flex items-center justify-center space-x-9">
             <li className="text-dark-100 dark:text-blue-50">
@@ -37,7 +43,6 @@ const Header = ({ dados }) => {
                 </Link>
               </div>
             </li>
-
             {
               !dados ?
                 <li><Link to={'/Login'} className='text-white hover:text-red-800'>Login</Link></li>
@@ -47,6 +52,7 @@ const Header = ({ dados }) => {
           </ul>
         </ul>
       </nav>
+      
       <ToggleTheme />
     </header>
   )

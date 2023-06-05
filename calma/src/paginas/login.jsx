@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CaixaTexto from '../componentes/CaixaTexto';
 
-const ip = "http://10.109.72.7:8000/"
+const ip = "http://192.168.0.104:8000"
 
 const Login = () => {
     const [cpf, setCpf] = useState("")
@@ -36,7 +36,7 @@ const Login = () => {
     
 
     return (
-        <div className='w-full h-screen dark:bg-gradient-to-t to-[#000511] from-[#1B3168]'>
+        <div className='w-full h-screen dark:bg-[#230033]'>
             <Header />
             <div className="flex items-center justify-center h-2/6">
                 <h1 className='dark:text-light-100 font-semibold text-2xl'>Faça login na sua conta</h1>

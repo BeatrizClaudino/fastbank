@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useEffect } from "react";
 import Teste from "./paginas/teste";
-
-const API_URL = 'http://10.109.72.7:8000';
+import Swal from "sweetalert2";
+const API_URL = 'http://192.168.0.104:8000';
 
 function App() {
     const navigate = useNavigate()
@@ -16,6 +16,23 @@ function App() {
     const [logado, setLogado] = useState(false)
     const [dados, setDados] = useState("")
     const [token, setToken] = useState("")
+
+    const mensagem = () =>{
+        Swal.fire({
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1800
+          })
+    }
+    const mensagemErro = () =>{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não foi possível criar a sua conta!',
+            footer: '<a href="">Por favor, revise os dados fornecidos</a>'
+          })
+    }
 
     const refreshToken = async (refreshToken) => {
         try {
@@ -38,19 +55,23 @@ function App() {
             cpf: cpf,
             password: senha
         }).then((res) => {
+            mensagem()
             console.log('passei awqui')
             axios.post(`${API_URL}jwt/create`, {
                 cpf: cpf,
-                password: senha
+                password: senha,
+            
             }).then((res) => {
                 setToken(JSON.stringify(res.data))
                 localStorage.setItem('token', token)
                 console.log(res)
             })
             .catch((err) => {
+                mensagemErro()
                 console.log('aquiaquiaqui', err)
             })
         }).catch((err) => {
+            mensagemErro()
             console.error("erro" +err)
         })
     }

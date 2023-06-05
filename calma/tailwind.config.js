@@ -11,6 +11,7 @@ module.exports = {
     extend:{
       backgroundImage: {
         'mulherDistraida': "url('imagens/mulherDistraida.png')",
+        'mulheresCartao': "url('imagens/mulheresCartao.jpg')",
       },
       colors: {
         dark: {

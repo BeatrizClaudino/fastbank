@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {SunIcon, MoonIcon} from '@heroicons/react/24/solid'
 
+
 const ToggleTheme = () => {
     const pageRef = document.documentElement.classList
     //PEGANDO O PADRÃO DO SO, PRETO OU BRANCO 
@@ -17,7 +18,7 @@ const ToggleTheme = () => {
         setDark(!dark)
     }
     return ( 
-       <div className='hidden sm:block'>
+       <div className=''>
             <SunIcon className='w-7 h-7 text-gray-100 cursor-pointer hidden dark:block' onClick={toggleTheme} />
             <MoonIcon className='w-7 h-7 text-gray-100 cursor-pointer block dark:hidden' onClick={toggleTheme} />
        </div>

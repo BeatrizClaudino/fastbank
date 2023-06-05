@@ -12,7 +12,7 @@ const CriarConta = ({conta}) => {
     const [senha, setsenha] = useState()
 
     return ( 
-    <div className='w-screen h-screen dark:bg-gradient-to-t to-[#000511] from-[#1B3168]'>
+    <div className='dark:bg-[#230033]'>
         <Header/>
         <div className="">
         <div className="flex items-center justify-center h-56">
@@ -31,7 +31,7 @@ const CriarConta = ({conta}) => {
             </div>
             <button onClick={() => { 
                 conta(nome, email, cpf, datanascimento, celular, senha)
-                // navigate('/')
+                Click()
                 }} className='bg-[#6936F5] w-80 h-14 rounded-2xl disabled:opacity-50' type={'button'} disabled={!aceita}> Logar</button>
 
             {/* <Botao evento={() =>login(cpf, senha)} tipo='submit' texto='Login'/> */}
