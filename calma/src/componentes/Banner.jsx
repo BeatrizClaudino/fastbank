@@ -13,7 +13,7 @@ const Banner = (props) => {
             <label className='flex text-justify text-[#7E7E7E] text-[15px] xl:w-[80%] xl:text-[25px]'>
                 {props.texto}
             </label>
-          <BotaoCard texto={props.nomeBotao}/>
+          <BotaoCard texto={props.nomeBotao} evento={props.evento}/>
         </div>
     </div>
     )

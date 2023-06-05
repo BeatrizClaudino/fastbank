@@ -4,37 +4,69 @@ import Botao from '../componentes/Botao';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CaixaTexto from '../componentes/CaixaTexto';
+import Swal from "sweetalert2";
 
-const ip = "http://192.168.0.104:8000"
+const ip = "10.109.72.9:8000"
 
 const Login = () => {
     const [cpf, setCpf] = useState("")
     const [senha, setSenha] = useState("")
+    const [token, setToken] = useState("")
     const navigate =  useNavigate()
 
-    useEffect(()=>{
-        
-    })
+    const showAlert = () => {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Bem vindo ao CashBank!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        navigate('/SolicitarCartao')
+      }; 
 
-    const logar = async () => {
-        try {
-            const res = await axios.post(`${ip}/auth/jwt/create`, {
-                cpf: cpf,
-                password: senha,
-            }).then((res) => {
-                alert("passou aqui"),
-                localStorage.setItem('token', JSON.stringify(res.data.access));
-                alert(res.data.access)
-                navigate('/');
-                return response.data;
-            })
-            } catch (error) {
-                console.log('Erro no login:', error);
-                throw new Error('Falha no login' + error);
+    const mensagemErro = () =>{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Senha ou CPF inválidos!!',
+            footer: '<a href="">Por favor, revise os dados fornecidos</a>'
+          })
+    }
+  
+    const login = () => {
+        if (!cpf) {
+          console.log('Preencha o campo cpf')
+          return
+        }
+        else if (cpf.length < 11) {
+            console.log('CPF inválido!')
+        }
+        else if (!senha) {
+            console.log('Preencha o campo senha')
+        }
+        else {
+          enter()
+        }
+      }
+      const enter = async () => {
+        axios.post(`http://${ip}/auth/jwt/create`, {
+          cpf: cpf,
+          password: senha,
+        }).then((resposta) => {
+            localStorage.setItem('token', JSON.stringify(resposta.data.access))
+            setToken(resposta.data.access)
+            alert(resposta.data.access)
+            showAlert()
+        }).catch((erro) => {
+            if (erro.response.status === 401){
+                mensagemErro()
             }
-        };
-    
-
+            else{
+              console.log(erro + "errinho")
+            }
+        })
+      }
     return (
         <div className='w-full h-screen dark:bg-[#230033]'>
             <Header />
@@ -47,11 +79,9 @@ const Login = () => {
                 <label className='dark: text-light-100'>Senha</label>
                 <CaixaTexto className='w-full max-w-lg h-9 rounded-md' tipo='password' required placeholder='Digite a sua senha' mudanca={e => setSenha(e.target.value)} />
                 <button onClick={() => {
-                    logar()
-                    // navigate('/')
+                    login()
+                   
                 }} className='bg-[#6936F5] w-80 h-14 rounded-2xl' type={'button'}>Logar</button>
-
-                {/* <Botao evento={() =>login(cpf, senha)} tipo='submit' texto='Login'/> */}
             </form>
         </div>
     );

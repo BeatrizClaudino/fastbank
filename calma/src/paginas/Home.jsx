@@ -5,10 +5,11 @@ import Celular from '../imagens/celularApp.png'
 import TelaInicial from '../imagens/telaInicial.png'
 import Quadradinhos from '../componentes/quadradosPequenos';
 import { Link } from 'react-router-dom';
-import BotaoCard from '../componentes/BotaoCard';
+import { useNavigate } from 'react-router-dom';
 import Banner from '../componentes/Banner';
 
 const Home = ({ refresh }) => {
+    const navigate =  useNavigate()
     return (
         <div className=' w-full h-full dark:bg-[#230033]'>
             <Header />
@@ -47,11 +48,11 @@ const Home = ({ refresh }) => {
             </div>
             <div className='w-full h-full flex flex-col items-center md:dark:bg-gradient-to-r to-[#6703a4] from-50% from-[#230033]'>
                 <div className='w-[90%] rounded-xl flex items-center justify-center bg-mulherDistraida bg-no-repeat bg-cover h-[250px] sm:h-[350px] md:h-[400px] lg:h-[600px] xl:h-[600px] xl:w-[1200px]'></div>
-                <Banner nomeBotao="Conheça o app" texto="Gerencie suas finanças com facilidade. Baixe agora o aplicativo do CashBank e tenha acesso a todas as funcionalidades do seu banco na palma da mão."/>
+                <Banner nomeBotao="Conheça o app"  texto="Gerencie suas finanças com facilidade. Baixe agora o aplicativo do CashBank e tenha acesso a todas as funcionalidades do seu banco na palma da mão."/>
             </div>
             <div className='w-full h-full pt-10 flex flex-col items-center md:dark:bg-gradient-to-r to-[#6703a4] from-50% from-[#230033]'>
                 <div className='w-[90%] rounded-xl flex items-center justify-center bg-mulheresCartao bg-no-repeat bg-cover h-[250px] sm:h-[350px] md:h-[400px] lg:h-[600px] xl:h-[600px] xl:w-[1200px]'></div>
-                <Banner nomeBotao="Solicite seu cartão" titulo="Para você: CashBank Card" texto="Descubra o mundo de benefícios e praticidade que o Cartão CashBank oferece. Solicite o seu hoje mesmo"/>
+                <Banner evento={() =>  navigate('/SolicitarCartao')} nomeBotao="Solicite seu cartão" titulo="Para você: CashBank Card" texto="Descubra o mundo de benefícios e praticidade que o Cartão CashBank oferece. Solicite o seu hoje mesmo"/>
             </div>
 
             <div className='w-full h-full xl:w-[60%] pt-14 flex flex-col items-center'>

@@ -6,9 +6,9 @@ import CriarConta from './paginas/CriarConta'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useEffect } from "react";
-import Teste from "./paginas/teste";
 import Swal from "sweetalert2";
-const API_URL = 'http://192.168.0.104:8000';
+import SolicitarCartao from "./paginas/SolicitarCartao";
+const API_URL = 'http://10.109.72.9:8000';
 
 function App() {
     const navigate = useNavigate()
@@ -84,7 +84,7 @@ return (
         <Route path='/Login' element={<Login />} />
         <Route path="/Cadastro" element={<CriarConta conta={criarconta} />} />
         <Route path='/' element={<Home refresh={refreshToken} />} />
-        <Route path='/teste' element={<Teste />}/>
+        <Route path='/SolicitarCartao' element={<SolicitarCartao />}/>
     </Routes>
 
 )
