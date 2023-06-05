@@ -41,14 +41,6 @@ class ContaCreateView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
-    
-    # def get_queryset(self):
-    #     querryset = Conta.objects.all()
-    #     id_Cliente = self.request.query_params.get('user_id')
-    #     if id_Cliente is not None:
-    #         querryset= querryset.filter(user_id=id_Cliente)
-    #         return querryset
-    #     return super().get_queryset()
  
 class EnderecoView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
@@ -62,11 +54,10 @@ class EnderecoView(viewsets.ModelViewSet):
         token = request.META.get('HTTP_AUTHORIZATION', '').split(' ')[1]
         dados = AccessToken(token)
         usuario = dados['user_id']
-        conta_atual = Conta.objects.get(id_user=usuario)
+        conta_atual = Conta.objects.get(fk_cliente=usuario)
+        cliente = Cliente.objects.get(id=usuario)
         novo_endereco = Endereco.objects.all()
-        novo_endereco.logradouro = request.data['logradouro']
-        novo_endereco.numero = request.data['numero']
-        novo_endereco.cliente = usuario
+        novo_endereco.fk_cliente = usuario
         
         for i in range(0, 3):
             numCvv =(randint(0,9))
@@ -76,16 +67,19 @@ class EnderecoView(viewsets.ModelViewSet):
             num = (randint(0,9))
             numCartao.append(num)
     
-        Cartao.objects.create(fk_conta_cartao=conta_atual, numero=numCartao, validade="2023-05-23", codigoSeguranca=123, bandeira="Visa", nome_titular=conta_atual.fk_cliente__nome)
+        Cartao.objects.create(fk_conta=conta_atual, numero_cartao=numCartao, data_vencimento="2023-05-23", cvv=123, bandeira="Visa", nome_titular=cliente.nome)
     
         request.POST._mutable = True
         return super().create(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
-        token = request.META.get('HTTP_AUTHORIZATION', '').split(' ')[1]
-        dados = AccessToken(token)
-        cartao = dados['id_cartao']
-        print(cartao)
+        # token = request.META.get('HTTP_AUTHORIZATION', '').split(' ')[1]
+        # dados = AccessToken(token)
+        # id_cliente = dados['user_id']
+        # conta = Conta.objects.get(fk_cliente=id_cliente)
+        # cartao = Cartao.objects.get(fk_conta=conta.id)
+        # print(id_cliente)
+        # return cartao
         return super().list(request, *args, **kwargs)
     
 class CartaoViewSet(viewsets.ModelViewSet):
@@ -155,7 +149,7 @@ class MovimentacaoView(viewsets.ModelViewSet):
         else:
             return Response(clienteDestinatario._errors, status=status.HTTP_400_BAD_REQUEST)
         
-    # Cartao.objects.create(fk_conta_cartao=conta_atual, numero=numCartao, validade="2023-05-23", codigoSeguranca=123, bandeira="Visa", nome_titular=conta_atual.fk_cliente__nome)
+    # Cartao.objects.create(fk_conta=conta_atual, numero=numCartao, validade="2023-05-23", codigoSeguranca=123, bandeira="Visa", nome_titular=conta_atual.fk_cliente__nome)
   
 
 class EmprestimoView(viewsets.ModelViewSet):

@@ -83,16 +83,15 @@ class Endereco(models.Model):
         verbose_name_plural = "Endereço"
 
 class Cartao(models.Model):
-    fk_conta_cartao = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
+    fk_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
     numero_cartao = models.CharField(max_length=20)
     cvv = models.IntegerField()
     data_vencimento = models.DateField()
     bandeira = models.CharField(max_length=20)
-    nome_titular_cartao = models.CharField(max_length=100)
     cartao_ativo = models.BooleanField(default=True)
-    nome_titular = models.CharField(max_length=255)
-    numero_conta = models.CharField(max_length=5)
-    
+    nome_titular = models.CharField(max_length=100)
+
+
     class Meta:
         constraints = [
             models.UniqueConstraint(
