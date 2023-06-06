@@ -8,7 +8,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import SolicitarCartao from "./paginas/SolicitarCartao";
-const API_URL = 'http://10.109.72.9:8000';
+import SolicitarCard from "./paginas/teste";
+const API_URL = 'http://192.168.0.104:8000';
 
 function App() {
     const navigate = useNavigate()
@@ -24,6 +25,7 @@ function App() {
             showConfirmButton: false,
             timer: 1800
           })
+          navigate('/Login')
     }
     const mensagemErro = () =>{
         Swal.fire({
@@ -38,7 +40,7 @@ function App() {
         try {
             const pegarToken = await axios.get(token)
             console.log(pegarToken)
-            const response = await axios.post(API_URL + '/jwt/refresh', {
+            const response = await axios.post(API_URL + '/auth/jwt/refresh', {
                 refresh: refreshToken
             });
             return response.data
@@ -57,7 +59,7 @@ function App() {
         }).then((res) => {
             mensagem()
             console.log('passei awqui')
-            axios.post(`${API_URL}jwt/create`, {
+            axios.post(`${API_URL}/auth/jwt/create`, {
                 cpf: cpf,
                 password: senha,
             
@@ -65,6 +67,7 @@ function App() {
                 setToken(JSON.stringify(res.data))
                 localStorage.setItem('token', token)
                 console.log(res)
+                
             })
             .catch((err) => {
                 mensagemErro()
@@ -82,6 +85,7 @@ useEffect(() => {
 return (
     <Routes>
         <Route path='/Login' element={<Login />} />
+        <Route path='/Teste' element={<SolicitarCard conta={criarconta} />} />
         <Route path="/Cadastro" element={<CriarConta conta={criarconta} />} />
         <Route path='/' element={<Home refresh={refreshToken} />} />
         <Route path='/SolicitarCartao' element={<SolicitarCartao />}/>

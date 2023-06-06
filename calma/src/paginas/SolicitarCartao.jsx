@@ -4,8 +4,7 @@ import CaixaTexto from '../componentes/CaixaTexto';
 import Header from '../componentes/Header';
 import axios from 'axios';
 
-const ip = "10.109.72.9:8000"
-
+const ip = "192.168.0.104:8000"
 
 const SolicitarCartao = () => {
     const [logradouro, setLogradouro] = useState('')

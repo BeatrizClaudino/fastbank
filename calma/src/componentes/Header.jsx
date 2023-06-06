@@ -36,9 +36,11 @@ const Header = ({ dados }) => {
                   <li className="text-dark-100 dark:text-blue-50">
                     Sobre nós
                   </li>
+                  <Link to={"/Teste"}>
                   <li className="text-dark-100 dark:text-blue-50">
-                    Dúvidas
+                    Sua conta
                   </li>
+                  </Link>
                   <Link to={'/'} className='text-white hover:text-red-800' onClick={logout}>Sair</Link>
                 </ul>
               </ul>

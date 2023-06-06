@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Banner from '../componentes/Banner';
 
-const Home = ({ refresh }) => {
+const Home = () => {
     const navigate =  useNavigate()
     return (
         <div className=' w-full h-full dark:bg-[#230033]'>
@@ -52,7 +52,7 @@ const Home = ({ refresh }) => {
             </div>
             <div className='w-full h-full pt-10 flex flex-col items-center md:dark:bg-gradient-to-r to-[#6703a4] from-50% from-[#230033]'>
                 <div className='w-[90%] rounded-xl flex items-center justify-center bg-mulheresCartao bg-no-repeat bg-cover h-[250px] sm:h-[350px] md:h-[400px] lg:h-[600px] xl:h-[600px] xl:w-[1200px]'></div>
-                <Banner evento={() =>  navigate('/SolicitarCartao')} nomeBotao="Solicite seu cartão" titulo="Para você: CashBank Card" texto="Descubra o mundo de benefícios e praticidade que o Cartão CashBank oferece. Solicite o seu hoje mesmo"/>
+                <Banner evento={() =>  navigate('/Teste')} nomeBotao="Solicite seu cartão" titulo="Para você: CashBank Card" texto="Descubra o mundo de benefícios e praticidade que o Cartão CashBank oferece. Solicite o seu hoje mesmo"/>
             </div>
 
             <div className='w-full h-full xl:w-[60%] pt-14 flex flex-col items-center'>

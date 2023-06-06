@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import CaixaTexto from '../componentes/CaixaTexto';
 import Swal from "sweetalert2";
 
-const ip = "10.109.72.9:8000"
+const ip = "192.168.0.104:8000"
 
 const Login = () => {
     const [cpf, setCpf] = useState("")
@@ -22,7 +22,7 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500
           })
-        navigate('/SolicitarCartao')
+        navigate('/Teste')
       }; 
 
     const mensagemErro = () =>{
@@ -54,9 +54,8 @@ const Login = () => {
           cpf: cpf,
           password: senha,
         }).then((resposta) => {
-            localStorage.setItem('token', JSON.stringify(resposta.data.access))
             setToken(resposta.data.access)
-            alert(resposta.data.access)
+            localStorage.setItem('token', JSON.stringify(resposta.data))
             showAlert()
         }).catch((erro) => {
             if (erro.response.status === 401){
