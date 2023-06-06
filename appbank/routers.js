@@ -11,6 +11,7 @@ import Cadastro from './src/paginas/Cadastro'
 import Pix from "./src/paginas/Pix";
 import Emprestimo from './src/paginas/Emprestimo';
 import Valor from './src/componentes/Valor';
+import TelaInicial from './src/paginas/TelaInicial';
 
 const Nav = createBottomTabNavigator()
 const Pilha = createStackNavigator()
@@ -20,6 +21,7 @@ function NavBar() {
         <Nav.Navigator
             screenOptions={{
                 tabBarStyle: {
+                    backgroundColor:"#ffff",
                     borderTopColor: 'transparent',
                     paddingBottom: 1,
                     paddingTop: 1,
@@ -43,6 +45,11 @@ export default function Routers({ navigation }) {
     return (
         <NavigationContainer>
             <Pilha.Navigator>
+            <Pilha.Screen
+                name="TeleInicial"
+                component={TelaInicial}
+                options={{ title: false, headerShown: false }}
+            />
                 <Pilha.Screen
                     name="Login"
                     component={Login}
