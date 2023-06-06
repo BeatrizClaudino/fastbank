@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CaixaTexto from "../componentes/CaixaTexto";
 import RetornarDados from "../componentes/Input";
 
-const ip = "192.168.0.104:8000"
+const ip = "10.109.72.9:8000"
 const Teste = () => {
     const [exibirSaldo, setExibirSaldo] = useState(false)
     const [exibirfatura, setExibirFatura] = useState(false)
@@ -107,7 +107,7 @@ const Teste = () => {
                     <label className="dark:text-white text-[40px] pb-9">
                         Seus dados
                     </label>
-                <div className="flex flex-col drop-shadow-lg backdrop-blur-xl bg-slate-300/30 w-[80%] md:w-[40%] h-[60vh] rounded-2xl">
+                <div className="flex flex-col drop-shadow-lg backdrop-blur-xl bg-slate-300/30 w-[80%] md:w-[40%] rounded-2xl">
                     <div className="flex justify-center flex-col items-center">
                         <RetornarDados value={user.nome} />
                         <RetornarDados value={user.cpf} />

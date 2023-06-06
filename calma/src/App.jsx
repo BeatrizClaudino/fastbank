@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import SolicitarCartao from "./paginas/SolicitarCartao";
 import SolicitarCard from "./paginas/teste";
-const API_URL = 'http://192.168.0.104:8000';
+const API_URL = 'http://10.109.72.9:8000';
 
 function App() {
     const navigate = useNavigate()

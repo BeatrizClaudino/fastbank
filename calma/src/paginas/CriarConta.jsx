@@ -16,7 +16,7 @@ const CriarConta = ({conta}) => {
         <Header/>
         <div className="">
         <div className="flex items-center justify-center h-56">
-            <h1 className='dark:text-light-100 font-semibold text-2xl'>Abra agora a sua conta digital</h1>
+            <h1 className='dark:text-light-100 font-semibold text-2xl pb-16'>Abra agora a sua conta digital</h1>
         </div>
          <form className='flex flex-col items-center justify-center gap-16 -mt-20 mx-5 '>
             <CaixaTexto quantidadeCaracteres={255} placeholder="Digite o seu nome" tipo="text" mudanca={e => setNome(e.target.value)}/>

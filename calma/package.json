@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "axios": "^1.4.0",
+    "hamburger-react": "^2.5.0",
     "heroicons": "^2.0.18",
     "install": "^0.13.0",
     "react": "^18.2.0",

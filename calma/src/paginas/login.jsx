@@ -1,12 +1,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import Header from '../componentes/Header';
-import Botao from '../componentes/Botao';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CaixaTexto from '../componentes/CaixaTexto';
 import Swal from "sweetalert2";
 
-const ip = "192.168.0.104:8000"
+const ip = "10.109.72.9:8000"
 
 const Login = () => {
     const [cpf, setCpf] = useState("")
@@ -73,10 +72,16 @@ const Login = () => {
                 <h1 className='dark:text-light-100 font-semibold text-2xl'>Faça login na sua conta</h1>
             </div>
             <form className='flex flex-col items-center justify-center gap-10 -mt-20 mx-5 '>
-                <label className='dark: text-light-100'>CPF</label>
-                <CaixaTexto className='w-full max-w-lg  h-9 rounded-md' tipo='text' required placeholder='Digite o seu cpf' mudanca={e => setCpf(e.target.value)} />
-                <label className='dark: text-light-100'>Senha</label>
+                <label className='dark:text-light-100 text-black'>CPF</label>
+                <CaixaTexto quantidadeCaracteres={11} className='w-full max-w-lg  h-9 rounded-md' tipo='text' required placeholder='Digite o seu cpf' mudanca={e => setCpf(e.target.value)} />
+                <label className='dark:text-light-100 text-black'>Senha</label>
                 <CaixaTexto className='w-full max-w-lg h-9 rounded-md' tipo='password' required placeholder='Digite a sua senha' mudanca={e => setSenha(e.target.value)} />
+                <div>
+                  <label className='dark:text-white underline'>
+                    esqueci a minha senha
+                  </label>
+                </div>
+                
                 <button onClick={() => {
                     login()
                    
