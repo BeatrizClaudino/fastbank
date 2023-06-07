@@ -12,6 +12,7 @@ import Pix from "./src/paginas/Pix";
 import Emprestimo from './src/paginas/Emprestimo';
 import Valor from './src/componentes/Valor';
 import TelaInicial from './src/paginas/TelaInicial';
+import InfoUser from './src/paginas/InfoUser';
 
 const Nav = createBottomTabNavigator()
 const Pilha = createStackNavigator()
@@ -88,6 +89,11 @@ export default function Routers({ navigation }) {
                 <Pilha.Screen
                     name="Transferencia"
                     component={Transferencia}
+                    options={{ title: false, headerShown: true }}
+                />
+                 <Pilha.Screen
+                    name="InfoUser"
+                    component={InfoUser}
                     options={{ title: false, headerShown: true }}
                 />
             </Pilha.Navigator>

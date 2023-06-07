@@ -7,7 +7,7 @@ import Logo from "../../assets/Logo.png";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CaixaInput from '../componentes/CaixaInput';
 
-export const ip = "10.109.72.7:8000"
+export const ip = "192.168.0.104:8000"
 
 export default function Login({ navigation }) {
   //CONSTANTES UTILIZADAS NO DECORRER DO PROJETO E SÃO DADOS OBRIGATÓRIOS NO INPUT PELO USUÁRIO
@@ -32,12 +32,12 @@ export default function Login({ navigation }) {
     }
   }
   const enter = async () => {
-    const resposta = axios.post(`http://${ip}/auth/jwt/create/`, {
+    axios.post(`http://${ip}/auth/jwt/create/`, {
       cpf: cpf,
       password: senha,
     }).then((resposta) => {
       setToken(resposta.data.access)
-      AsyncStorage.setItem('token', JSON.stringify(resposta.data.acess))
+      AsyncStorage.setItem('token', JSON.stringify(resposta.data))
       navigation.navigate('Home')
     }).catch((erro) => {
       Alert.alert(erro + "errinho")
@@ -65,7 +65,7 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
           </View>
         </Text>
-        <Botao evento={() => navigation.navigate("Login")} nomeBotao={"Entrar"} />
+        <Botao evento={() => enter()} nomeBotao={"Entrar"} />
       </View>
     </View>
   );

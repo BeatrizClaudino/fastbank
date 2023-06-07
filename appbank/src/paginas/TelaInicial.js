@@ -15,7 +15,7 @@ export default function TelaInicial({ navigation }){
                     
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Login")} className="pb-8 pt-5">
-                    <Text className="text-white text-[14px]">
+                    <Text className="text-white text-[18px]">
                         Já possuo conta
                     </Text> 
                 </TouchableOpacity>

@@ -8,7 +8,6 @@ import Transferencias from '../../assets/transferencia.png'
 import Card from '../../assets/card.png';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import olhoAberto from '../../assets/eye.png'
 import olhoFechado from '../../assets/closeeye.png'
@@ -16,7 +15,7 @@ import axios from 'axios';
 
 
 //Colocando o ip da máquina dentro de uma variável para poder utilizar no codigo todo
-export const ip = "10.109.72.7:8000"
+export const ip = "192.168.0.104:8000"
 
 
 export default function Home({ navigation }) {
@@ -24,6 +23,7 @@ export default function Home({ navigation }) {
     const [exibirfatura, setExibirFatura] = useState(false)
     const [nome, setNome] = useState(false)
     //Passando os dados que eu quero pegar do usuário
+    
     const [user, setUser] = useState({
         nome: "Carregando...",
         conta: {
@@ -40,6 +40,7 @@ export default function Home({ navigation }) {
         const getToken = async () => {
             try {
                 const token = await AsyncStorage.getItem("token");
+                const tokenRefresh = JSON.parse(token).refresh
                 const acessToken = JSON.parse(token).access;
                 if (!token) {
                     Alert.alert('Opa, parece que você não está logado!');
@@ -48,57 +49,58 @@ export default function Home({ navigation }) {
 
                 axios.get(`http://${ip}/auth/users/`, {
                     headers: {
-                        "Authorization": `JWT ${acessToken}`
+                        Authorization: `JWT ${acessToken}`
                     }
                 })
                     .then(res => {
                         axios.get(`http://${ip}/app/conta/${res.data[0].id}/`,
                             {
                                 headers: {
-                                    "Authorization": `JWT ${acessToken}`
+                                    Authorization: `JWT ${acessToken}`
                                 }
                             })
                             .then(resConta => {
-                                console.log(resConta);
                                 setUser({ ...res.data[0], conta: resConta.data })
                             }).catch((error) => {
                                 console.log(error)
                     })})
                 .catch((erro) => {
-                        axios.post(`http://${ip}/auth/jwt/refresh`, { refresh: token.refresh }) // DAR O REFRESH
+                        axios.post(`http://${ip}/auth/jwt/refresh`, { refresh: tokenRefresh }) // DAR O REFRESH
                             .then((res) => {
-                                tokenAccess = res.data.access
+                                var tokenAccess = res.data.access
                                 const testeToken = {
                                     headers: {
-                                        "Authorization": `JWT ${acessToken}`
+                                        Authorization : `JWT ${tokenAccess}`
                                     },
                                 }
                                 console.log('oi')
-                                axios.get(`http://${ip}/auth/users/me`, testeToken)
-                                    .then((res) => {
-                                        console.log(res.data)
-                                    })
-                                    .catch((err) => {
-                                        console.log('deu ruim2', err);
+                                axios.get(`http://${ip}/auth/users/`, testeToken
+                                )
+                                    .then(res => {
+                                        axios.get(`http://${ip}/app/conta/${res.data[0].id}/`, testeToken)
+                                            .then(resConta => {
+                                                setUser({ ...res.data[0], conta: resConta.data })
+                                            }).catch((error) => {
+                                                alert(error)
+                                            })
                                     })
                             }
                             ).catch((erro) => {
-                                console.log('entrou4');
-                                console.log('errooioioioio', erro)
+                                console.log('entrou4', erro);
+                                alert('errooioioioio', erro)
                             })
-                })
-        } catch (error) {
-            console.log(error);
-            // Trate o erro adequadamente
-        }
-    };
+                    })
+            } catch (error) {
+                console.log(error);
+                // Trate o erro adequadamente
+            }
+        };
 
-    getToken();
-    return () => {
-        setUser
-    };
-}, []);
-
+        getToken();
+        return () => {
+            setUser
+        };
+    }, []);
     // FUNÇÃO PARA FAZER LOGOUT DA CONTA
     async function logout() {
         await AsyncStorage.removeItem("token");
@@ -125,7 +127,7 @@ export default function Home({ navigation }) {
             <LinearGradient className="h-[23%]" colors={['#6300B0', '#021249']}>
                 <View className="p-5 flex flex-row space-x-28">
                     <View className="flex flex-row">
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('InfoUser')}>
                             <Image source={require('../../assets/User.png')} />
                         </TouchableOpacity>
                         <Text className="text-cyan-50 pt-6 pl-2 text-[19px]">{`Olá, ${user.nome}`}</Text>
@@ -195,8 +197,9 @@ export default function Home({ navigation }) {
                         </View>
                     </View> 
                 </View> 
-                <View className="h-80 bg-slate-300">
-
+                <View className="h-[45vh] pt-9 flex items-center">
+                    <Text className="pb-7 text-[24px]">Ánalise de gastos mensais</Text>
+                    <Image className="w-full h-[24vh]" source={require('../../assets/grafico.jpg')}/>
                 </View>
             </View>
         </ScrollView>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Button, Alert, ScrollView } from 'react-native';
 import Botao from '../componentes/Button';
 import axios, { Axios } from 'axios';
-export const ip = "10.109.72.7:8000"
+export const ip = "192.168.0.104:8000"
 import CaixaInput from '../componentes/CaixaInput';
 
 

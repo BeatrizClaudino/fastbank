@@ -6,7 +6,7 @@ import BotaoDinheiro from "../componentes/botaoDinheiro"
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const ip = "10.109.72.7:8000"
+export const ip = "192.168.0.104:8000"
 
 export default function Emprestimo({ navigation }) {
     const [valor, setValor] = useState(0)
@@ -24,15 +24,15 @@ export default function Emprestimo({ navigation }) {
         const testar = async () => {
       try {
         const token = await AsyncStorage.getItem("token");
+        const tokenRefresh = JSON.parse(token).refresh
         const acessToken = JSON.parse(token).access;
         axios.post(`http://${ip}/auth/jwt/refresh/`, { 
-          refresh: tokenJSON.refresh
+          refresh: tokenRefresh
          }) // DAR O REFRESH
           .then((res) => {
-            const tokenAccess = res.data.access
             const testeToken = {
               headers: {
-                Authorization: `JWT ${tokenAccess}`
+                Authorization: `JWT ${acessToken}`
               },
             }
             setHeader(testeToken)

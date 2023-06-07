@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Botao from '../componentes/Button';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export const ip = "10.109.72.7:8000"
+import Home from './Home';
+import CaixaInput from '../componentes/CaixaInput';
+export const ip = "192.168.0.104:8000"
 
 const showAlert = () => {
   Alert.alert('Sucesso', 'Empréstimo realizado com sucesso!', [
@@ -13,13 +14,16 @@ const showAlert = () => {
   ]);
 };
 export default function Emprestimo({ route, navigation}) {
-  // const { user } = useSession(navigation);
   const { valor } = route.params
+
   const aprovado = false
   const [token, setToken] = useState();
   const [parcelas, setParcelas] = useState(1);
-  const [custoParcela, setCustoParcela] = useState(0);
+  const [custoParcela, setCustoParcela] = useState(valor);
   const [valorTotalJuros, setValorTotalJuros] = useState(0)
+
+  const [senha, setSenha] = useState('');
+  var window = true
 
   const taxa = 5 / 100
 
@@ -33,7 +37,7 @@ export default function Emprestimo({ route, navigation}) {
     setValorTotalJuros(valortotal)
   };
 
-  const [header, setHeader] = useState({})
+  const [header, setHeader] = useState()
 
   useEffect(() => {
     const testar = async () => {
@@ -41,11 +45,11 @@ export default function Emprestimo({ route, navigation}) {
         console.log('entrou')
         const token = await AsyncStorage.getItem("token");
         const tokenJSON = JSON.parse(token);
-        const acessToken = tokenJSON.access;
-        console.log(acessToken)
-        axios.post(`http://${ip}/auth/jwt/refresh`, { refresh: tokenJSON.refresh }) // DAR O REFRESH
+        const tokenRefresh = JSON.parse(token).refresh
+        axios.post(`http://${ip}/auth/jwt/refresh`, { refresh: tokenRefresh }) // DAR O REFRESH
           .then((res) => {
             const tokenAccess = res.data.access
+            console.log("aaaaaaaa", tokenAccess)
             const testeToken = {
               headers: {
                 Authorization: `JWT ${tokenAccess}`
@@ -64,6 +68,17 @@ export default function Emprestimo({ route, navigation}) {
     }
     testar();
   }, [])
+
+  // const handleSolicitarEmprestimo = () => {
+  //   <View className="bg-white w-[20vw] h-[20vh]">
+  //     <CaixaInput texto="Digite a sua senha" placeholder="confirmar senha"/>
+  //     <View>
+  //       <Button title="Ok" onChangeText={(e) => setSenha(e)}/>
+  //     </View>
+  //     <Button title="Cancel" onPress={() => window=false}/>
+  //   </View>
+  // };
+
 
   const enviarEmprestimo = () => {
     axios.post(`http://${ip}/app/emprestimo/`, {
@@ -85,9 +100,12 @@ export default function Emprestimo({ route, navigation}) {
 
   return (
     <View className="w-full h-full bg-white">
-      <View className=" justify-center items-center text-center">
-        <Text className="text-[24px] text-[#4a1374] mb-4">Solicitar Empréstimo</Text>
-        <Text className="text-[20px] pt-12">
+      <View className="flex justify-center items-center text-center">
+        <View className="w-full flex">
+          <Image className="h-[20vh]" source={require('../../assets/Logo.png')}/>
+        </View>
+        <Text className="text-[28px] text-[#4a1374]">Empréstimo consignado</Text>
+        <Text className="h-[13vh] text-[20px] pt-3">
           Empréstimo solicitado: R${valor},00
         </Text>
         <View className="">
@@ -108,9 +126,10 @@ export default function Emprestimo({ route, navigation}) {
             <Picker.Item label="6x" value={6} />
           </Picker>
         </View>
-        <Text className="text-[18px]">Serão {parcelas} parcela(s) de {custoParcela}</Text>
-
-        <Botao evento={() => enviarEmprestimo()} nomeBotao={"Confirmar solicitação"} />
+        <Text className="text-[18px]">Serão {parcelas} parcela(s) de R$ {custoParcela}</Text>
+        <View className="w-full flex items-center pt-20">
+          <Botao evento={() => enviarEmprestimo()} nomeBotao={"Confirmar solicitação"} />
+        </View>
       </View>
     </View>
   );
